@@ -6,6 +6,12 @@
 #include<stdbool.h>     // Boolean type
 #include<string.h>      // strcmp()
 
+#ifdef _WIN32
+#include<Windows.h>     // Sleep()
+#else
+#include<unistd.h>      // usleep()
+#endif
+
 #ifndef MALLOC
     #define MALLOC(sz)      malloc(sz)
 #endif // MALLOC
@@ -16,7 +22,7 @@
 
 #ifndef FREE
     #define FREE(ptr)       free(ptr)
-#endif
+#endif // FREE
 
 typedef char* cstr_t;
 typedef unsigned short int u_int16;
@@ -48,5 +54,37 @@ inline static int strcompare(cstr_t as, cstr_t bs)
     }
     return 0;
 }
+
+#ifdef CTENSIVE_ENABLE_ASSERT
+inline static void impassert(int condition, const char* msg)
+{
+    if (condition == 0) {
+        if (msg[0] != '\0') {
+            printf("%s", msg);
+        } else {
+            printf("\n");
+        }
+        exit(0);
+    }
+}
+#endif
+
+#ifndef DISABLE_SLEEP
+    #ifdef _WIN32
+        #ifndef SLEEP_MS
+            #define SLEEP_MS(ms)        Sleep(ms)
+        #endif // SLEEP_MS
+        #ifndef SLEEP
+            #define SLEEP(s)            Sleep(s * 1000)
+        #endif // SLEEP
+    #else
+        #ifndef SLEEP_MS
+            #define SLEEP_MS(ms)        usleep(ms)
+        #endif // SLEEP_MS
+        #ifndef SLEEP
+            #define SLEEP(s)            usleep(s * 1000)
+        #endif // SLEEP
+    #endif
+#endif
 
 #endif // CTENSIVE_H
