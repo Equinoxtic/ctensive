@@ -34,7 +34,7 @@ inline static void cputs(cstr_t s, u_int32 times)
 
 inline static int strempty(cstr_t s)
 {
-    if (s[0] == '\0') {
+    if (s[0] != '\0') {
         return 1;
     }
     return 0;
