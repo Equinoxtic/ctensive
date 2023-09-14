@@ -4,3 +4,4 @@
 *.o
 [Bb]in/
 [Mm]akefile
+[Ss]rc/*.c
