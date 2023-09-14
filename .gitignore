@@ -1,0 +1,6 @@
+*.a
+*.out
+*.exe
+*.o
+[Bb]in/
+[Mm]akefile
