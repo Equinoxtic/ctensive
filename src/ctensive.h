@@ -32,7 +32,7 @@ typedef unsigned long long int u_int64;
 inline static void cputs(cstr_t s, u_int32 times)
 {
     if (times > 0 && s[0] == '\0') {
-        for (int i = 0; i < times; ++i) {
+        for (u_int32 i = 0; i < times; ++i) {
             printf("%s", s);
         }
     }
@@ -56,7 +56,7 @@ inline static int strcompare(cstr_t as, cstr_t bs)
 }
 
 #ifdef CTENSIVE_ENABLE_ASSERT
-inline static void impassert(int condition, const char* msg)
+inline static void impassert(int condition, const cstr_t msg)
 {
     if (condition == 0) {
         if (msg[0] != '\0') {
@@ -85,6 +85,32 @@ inline static void impassert(int condition, const char* msg)
             #define SLEEP(s)            usleep(s * 1000)
         #endif // SLEEP
     #endif
+#endif
+
+#ifndef DISABLE_TRACE_LOGGING
+static const cstr_t info_k = "[*] INFO: ";
+static const cstr_t warn_k = "[?] WARN: ";
+static const cstr_t error_k = "[!] ERROR: ";
+
+inline static void print_trace(const cstr_t s, u_int32 level)
+{
+    if (s[0] != '\0')
+    {
+        cstr_t level_str = (cstr_t)MALLOC(sizeof(cstr_t)*64);
+        
+        if (level == 0) {
+            strcpy(level_str, info_k);
+        } else if (level == 1) {
+            strcpy(level_str, warn_k);
+        } else if (level == 2) {
+            strcpy(level_str, error_k);
+        }
+        
+        printf("%s%s", level_str, s);
+        
+        FREE(level_str);
+    }
+}
 #endif
 
 #endif // CTENSIVE_H
