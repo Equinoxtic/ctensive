@@ -1,12 +1,6 @@
 #ifndef CTENSIVE_H
 #define CTENSIVE_H
 
-/* Available make flags
-*   -DCTENSIVE_ENABLE_ASSERT
-*   -DDISABLE_SLEEP
-*   -DDISABLE_TRACE_LOGGING
-*/
-
 #include<stdlib.h>      // malloc(), calloc()
 #include<stdio.h>       // printf()
 #include<stdbool.h>     // Boolean type
