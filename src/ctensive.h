@@ -1,15 +1,15 @@
 #ifndef CTENSIVE_H
 #define CTENSIVE_H
 
-#include<stdlib.h>      // malloc(), calloc()
-#include<stdio.h>       // printf()
-#include<stdbool.h>     // Boolean type
-#include<string.h>      // strcmp()
+#include <stdlib.h>      // malloc(), calloc()
+#include <stdio.h>       // printf()
+#include <stdbool.h>     // Boolean type
+#include <string.h>      // strcmp()
 
 #ifdef _WIN32
-#include<Windows.h>     // Sleep()
+#include <Windows.h>     // Sleep()
 #else
-#include<unistd.h>      // usleep()
+#include <unistd.h>      // usleep()
 #endif
 
 #ifndef MALLOC
@@ -109,6 +109,66 @@ inline static void print_trace(const cstr_t s, u_int32 level)
         printf("%s%s", level_str, s);
         
         FREE(level_str);
+    }
+}
+#endif
+
+#ifndef DISABLE_DRAW_FUNCTIONS
+static void create_line(const cstr_t s, u_int32 len)
+{
+    int should_draw = 1;
+    u_int32 n_len = 0;
+    int default_len = 75;
+    
+    if (len == 0) {
+        n_len = default_len;
+    } else if (len >= 128) {
+        n_len = default_len;
+    } else {
+        n_len = len;
+    }
+    
+    const cstr_t only_print[] = {
+        "-", "="
+    };
+    
+    for (size_t i = 0; i < sizeof(only_print)/sizeof(only_print[0]); ++i) {
+        if (strcmp(s, only_print[i]) == 0) {
+            should_draw = 0;
+        }
+    }
+    
+    if (should_draw == 0) {
+        printf("\n\n");
+        for (u_int32 i = 0; i < n_len; ++i) {
+            printf("%s", s);
+        }
+        printf("\n\n");
+    }
+}
+
+inline static void draw_line(u_int32 len)
+{
+    create_line("-", len);
+}
+
+inline static void draw_custom_line(const cstr_t s, u_int32 len)
+{
+    create_line(s, len);
+}
+
+inline static void draw_option(const cstr_t s, const cstr_t desc)
+{
+    if (s[0] != '\0' && s[0] != '\0') {
+        printf("\n[%s]: \"%s\"", s, desc);
+    }
+}
+
+inline static void draw_prompt(const cstr_t s, cstr_t buf)
+{
+    if (s[0] != '\0' && buf != NULL) {
+        printf("\n> %s (y/n) ", s);
+        scanf("%c", buf);
     }
 }
 #endif
