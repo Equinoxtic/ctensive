@@ -114,47 +114,25 @@ inline static void print_trace(const cstr_t s, u_int32 level)
 #endif
 
 #ifndef DISABLE_DRAW_FUNCTIONS
-static void create_line(const cstr_t s, u_int32 len)
+inline static void draw_line(u_int32 len, u_int32 variation)
 {
-    int should_draw = 1;
     u_int32 n_len = 0;
-    int default_len = 75;
     
-    if (len == 0) {
-        n_len = default_len;
-    } else if (len >= 128) {
-        n_len = default_len;
-    } else {
-        n_len = len;
-    }
+    if (len > 128) n_len = 128;
+    else if (len <= 0) n_len = 75;
+    else n_len = len;
     
-    const cstr_t only_print[] = {
-        "-", "="
+    const char c_arr[] = {
+        '-', '+', '=', '#', '_', '/', '\\'
     };
     
-    for (size_t i = 0; i < sizeof(only_print)/sizeof(only_print[0]); ++i) {
-        if (strcmp(s, only_print[i]) == 0) {
-            should_draw = 0;
-        }
-    }
+    u_int32 n_variation = 0;
+    if (variation > sizeof(c_arr)/sizeof(c_arr[0])) n_variation = 0;
+    else n_variation = variation;
     
-    if (should_draw == 0) {
-        printf("\n\n");
-        for (u_int32 i = 0; i < n_len; ++i) {
-            printf("%s", s);
-        }
-        printf("\n\n");
+    for (u_int32 i = 0; i < n_len; ++i) {
+        printf("%c", c_arr[n_variation]);
     }
-}
-
-inline static void draw_line(u_int32 len)
-{
-    create_line("-", len);
-}
-
-inline static void draw_custom_line(const cstr_t s, u_int32 len)
-{
-    create_line(s, len);
 }
 
 inline static void draw_option(const cstr_t s, const cstr_t desc)
@@ -164,11 +142,10 @@ inline static void draw_option(const cstr_t s, const cstr_t desc)
     }
 }
 
-inline static void draw_prompt(const cstr_t s, cstr_t buf)
+inline static void draw_prompt(const cstr_t s, cstr_t s_optiona, cstr_t s_optionb)
 {
-    if (s[0] != '\0' && buf != NULL) {
-        printf("\n> %s (y/n) ", s);
-        scanf("%c", buf);
+    if (s[0] != '\0' && s[0] != '\0' && s[0] != '\0') {
+        printf("\n> %s (%s/%s) ", s, s_optiona, s_optionb);
     }
 }
 #endif
