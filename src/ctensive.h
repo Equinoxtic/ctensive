@@ -123,7 +123,8 @@ inline static void draw_line(u_int32 len, u_int32 variation)
     else n_len = len;
     
     const char c_arr[] = {
-        '-', '+', '=', '#', '_', '/', '\\'
+        '-', '+', '=', '*', '#', '.', 
+        '_', '/', '\\', '|', '~', ':',
     };
     
     u_int32 n_variation = 0;
