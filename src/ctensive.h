@@ -1,7 +1,7 @@
 #ifndef CTENSIVE_H
 #define CTENSIVE_H
 
-#include <stdlib.h>      // malloc(), calloc()
+#include <stdlib.h>      // malloc(), calloc(), exit()
 #include <stdio.h>       // printf()
 #include <stdbool.h>     // Boolean type
 #include <string.h>      // strcmp()
@@ -150,5 +150,34 @@ inline static void draw_prompt(const cstr_t s, cstr_t s_optiona, cstr_t s_option
     }
 }
 #endif
+
+inline static void ccmdcall(cstr_t cmd_s)
+{
+    if (cmd_s[0] != '\0') {
+        char v_cmd[512];
+        strcpy(v_cmd, cmd_s);
+        system(v_cmd);
+    } else {
+        #ifndef DISABLE_TRACE_LOGGING
+        print_trace("Cannot execute command", 2);
+        #else
+        printf("ERROR: Cannot execute command");
+        #endif
+    }
+}
+
+inline static void cclearscreen()
+{
+    #ifdef _WIN32
+    ccmdcall("cls");
+    #else
+    ccmdcall("clear");
+    #endif
+}
+
+inline static void cexit()
+{
+    exit(0);
+}
 
 #endif // CTENSIVE_H
