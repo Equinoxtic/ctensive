@@ -156,7 +156,15 @@ inline static void ccmdcall(cstr_t cmd_s)
     if (cmd_s[0] != '\0') {
         char v_cmd[512];
         strcpy(v_cmd, cmd_s);
-        system(v_cmd);
+        
+        // Just to prevent users from doing this lol
+        if (strcmp(v_cmd, "exit") != 0) {
+            system(v_cmd);
+        } else {
+            printf("\n\nYou cannot use the \"exit\" command this way,");
+            printf("\nUse the built-in \"cexit()\" function instead.");
+            printf("\n:)\n\n");
+        }
     } else {
         #ifndef DISABLE_TRACE_LOGGING
         print_trace("Cannot execute command", 2);
