@@ -160,8 +160,14 @@ inline static void ccmdcall(cstr_t cmd_s)
         // Just to prevent users from doing this lol
         if (strcmp(v_cmd, "exit") != 0) {
             system(v_cmd);
-        } else {
-            printf("\n\nYou cannot use the \"exit\" command this way,");
+        }
+        #ifndef _WIN32
+        else if (strcmp(v_cmd, "quit") != 0) {
+            system(v_cmd);
+        } 
+        #endif
+        else {
+            printf("\n\nYou cannot use the \"%s\" command using \"ccmdcall()\",", v_cmd);
             printf("\nUse the built-in \"cexit()\" function instead.");
             printf("\n:)\n\n");
         }
