@@ -29,3 +29,13 @@ build:
 build:
     gcc foo.c -DDISABLE_TRACE_LOGGING -o bar.o
 ```
+
+### DISABLE_DRAW_FUNCTIONS
+
+* Disables simple drawing functions
+
+```makefile
+# MAKEFILE
+build:
+    gcc foo.c -DDISABLE_DRAW_FUNCTIONS -o bar.o
+```
