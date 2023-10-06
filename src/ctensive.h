@@ -151,6 +151,7 @@ inline static void draw_prompt(const cstr_t s, cstr_t s_optiona, cstr_t s_option
 }
 #endif
 
+#ifndef DISABLE_CCMDCALL
 inline static void ccmdcall(cstr_t cmd_s)
 {
     if (cmd_s[0] != '\0') {
@@ -179,6 +180,7 @@ inline static void ccmdcall(cstr_t cmd_s)
         #endif
     }
 }
+#endif
 
 inline static void cclearscreen()
 {
