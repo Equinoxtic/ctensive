@@ -39,3 +39,13 @@ build:
 build:
     gcc foo.c -DDISABLE_DRAW_FUNCTIONS -o bar.o
 ```
+
+### DISABLE_CCMDCALL
+
+* Disables the ccmdcall() function
+
+```makefile
+# MAKEFILE
+build:
+    gcc foo.c -DDISABLE_CCMDCALL -o bar.o
+```
