@@ -113,6 +113,33 @@ inline static void print_trace(const cstr_t s, u_int32 level)
 }
 #endif
 
+#ifndef DISABLE_MATH_FUNCTIONS
+inline static float ct_add(float x, float y)
+{
+    return ((float)x + (float)y);
+}
+
+inline static float ct_subtract(float x, float y)
+{
+    return ((float)x - (float)y);
+}
+
+inline static float ct_multiply(float x, float y)
+{
+    return ((float)x * (float)y);
+}
+
+inline static float ct_divide(float x, float y)
+{
+    return ((float)x / (float)y);
+}
+
+inline static float ct_pi()
+{
+    return 3.14159;
+}
+#endif
+
 #ifndef DISABLE_DRAW_FUNCTIONS
 inline static void draw_line(u_int32 len, u_int32 variation)
 {
