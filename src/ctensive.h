@@ -136,7 +136,7 @@ inline static float ct_divide(float x, float y)
 
 inline static float ct_pi()
 {
-    return 3.14159;
+    return 3.14159f;
 }
 #endif
 
